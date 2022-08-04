@@ -1,21 +1,26 @@
 <template>
   <div class="container">
-    <form class="card">
+    <form class="card" @submit.prevent="submitHandler">
       <h1>Анкета на Vue разработчика!</h1>
       <div class="form-control">
         <label for="name">Как тебя зовут?</label>
-        <input type="text" id="name" placeholder="Введи имя" />
+        <input
+          v-model.trim="name"
+          type="text"
+          id="name"
+          placeholder="Введи имя"
+        />
       </div>
 
       <div class="form-control">
         <label for="age">Выбери возраст</label>
-        <input type="number" id="age" value="33" />
+        <input v-model.number="age" type="number" id="age" min="18" max="99" />
       </div>
 
       <div class="form-control">
         <label for="city">Твой город</label>
-        <select id="city">
-          <option selected value="spb">Санкт-Петербург</option>
+        <select id="city" v-model="city">
+          <option value="spb">Санкт-Петербург</option>
           <option value="msk">Москва</option>
           <option value="kzn">Казань</option>
           <option value="nsk">Новосибирск</option>
@@ -53,8 +58,22 @@
 
 <script>
 export default {
-  name: "App",
-  components: {},
+  data() {
+    return {
+      name: '',
+      age: '33',
+      city: 'spb',
+    };
+  },
+  methods: {
+    submitHandler() {
+      console.group('Form data');
+      console.log('Name:', this.name);
+      console.log('Age:', this.age);
+      console.log('City:', this.city);
+      console.groupEnd();
+    },
+  },
 };
 </script>
 
